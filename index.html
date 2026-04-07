@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holiday Envy – Holidays your friends will wish they were on</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #085041;
+      --green-mid: #0F6E56;
+      --green-bright: #1D9E75;
+      --green-light: #9FE1CB;
+      --green-pale: #E1F5EE;
+      --text-primary: #1a1a1a;
+      --text-secondary: #5a5a5a;
+      --text-muted: #888;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f7f7f5;
+      --border: rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+    body { font-family: Georgia, 'Times New Roman', serif; color: var(--text-primary); background: var(--bg-primary); }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: var(--bg-primary); position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.3rem; font-weight: 700; color: var(--green-mid); font-family: Georgia, serif; }
+    .logo span { color: var(--text-primary); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-family: Arial, sans-serif; }
+    .nav-links a:hover { color: var(--green-mid); }
+    .nav-cta { background: var(--green-mid); color: white; border: none; padding: 9px 22px; border-radius: 999px; font-size: 13px; cursor: pointer; font-family: Arial, sans-serif; text-decoration: none; }
+    .nav-cta:hover { background: var(--green-dark); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 60%, #085041 100%); color: white; padding: 5rem 2rem 4.5rem; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 6px 20px; font-size: 12px; letter-spacing: 0.08em; color: #E1F5EE; margin-bottom: 1.5rem; text-transform: uppercase; font-family: Arial, sans-serif; }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1.1rem; font-family: Georgia, serif; }
+    .hero h1 span { color: #9FE1CB; }
+    .hero p { font-size: 1.1rem; color: #C8F0E4; max-width: 580px; margin: 0 auto 2.2rem; line-height: 1.75; font-family: Arial, sans-serif; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: white; color: var(--green-mid); border: none; padding: 14px 32px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; font-family: Arial, sans-serif; }
+    .btn-primary:hover { background: #f0f0f0; }
+    .btn-secondary { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.5); padding: 14px 32px; border-radius: 999px; font-size: 15px; cursor: pointer; text-decoration: none; font-family: Arial, sans-serif; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+    .waves { display: block; width: 100%; margin-bottom: -2px; background: var(--green-dark); }
+
+    /* SECTIONS */
+    .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-mid); font-weight: 600; margin-bottom: 0.5rem; font-family: Arial, sans-serif; }
+    .section-title { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; color: var(--text-primary); margin-bottom: 0.75rem; font-family: Georgia, serif; }
+    .section-sub { font-size: 1rem; color: var(--text-secondary); max-width: 580px; line-height: 1.75; margin-bottom: 2.5rem; font-family: Arial, sans-serif; }
+
+    /* BRAG BUBBLES */
+    .brag-strip { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .brag-bubble { background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: 999px; padding: 10px 20px; font-size: 14px; color: var(--text-secondary); font-style: italic; font-family: Arial, sans-serif; }
+    .brag-bubble strong { color: var(--text-primary); font-style: normal; }
+
+    /* DESTINATION CARDS */
+    .dest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .dest-card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: transform 0.18s, box-shadow 0.18s; }
+    .dest-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+    .dest-img { width: 100%; height: 175px; display: flex; align-items: flex-end; justify-content: space-between; padding: 12px; }
+    .dest-img.santorini { background: linear-gradient(160deg, #378ADD 0%, #185FA5 100%); }
+    .dest-img.tuscany { background: linear-gradient(160deg, #639922 0%, #3B6D11 100%); }
+    .dest-img.amalfi { background: linear-gradient(160deg, #1D9E75 0%, #085041 100%); }
+    .dest-img.paris { background: linear-gradient(160deg, #D4537E 0%, #993556 100%); }
+    .dest-img.barcelona { background: linear-gradient(160deg, #EF9F27 0%, #854F0B 100%); }
+    .dest-img.dolomites { background: linear-gradient(160deg, #7F77DD 0%, #534AB7 100%); }
+    .dest-emoji { font-size: 2.8rem; line-height: 1; }
+    .envy-tag { background: rgba(255,255,255,0.22); color: white; font-size: 11px; padding: 4px 11px; border-radius: 999px; align-self: flex-start; white-space: nowrap; font-family: Arial, sans-serif; }
+    .dest-body { padding: 1rem 1.25rem 1.25rem; }
+    .dest-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; font-family: Georgia, serif; }
+    .dest-brag { font-size: 13px; color: var(--green-mid); font-style: italic; margin-bottom: 6px; font-family: Georgia, serif; }
+    .dest-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; font-family: Arial, sans-serif; }
+    .dest-footer { display: flex; align-items: center; justify-content: space-between; }
+    .price { font-size: 15px; font-weight: 700; color: var(--green-mid); font-family: Arial, sans-serif; }
+    .book-btn { background: var(--green-mid); color: white; border: none; padding: 8px 18px; border-radius: 999px; font-size: 12px; cursor: pointer; text-decoration: none; font-family: Arial, sans-serif; }
+    .book-btn:hover { background: var(--green-dark); }
+    .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 2rem; }
+
+    /* WHY SECTION */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .why-card { text-align: center; padding: 1.5rem 1rem; }
+    .why-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--green-pale); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 22px; }
+    .why-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; font-family: Georgia, serif; }
+    .why-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; font-family: Arial, sans-serif; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--bg-secondary); padding: 4rem 2rem; }
+    .test-inner { max-width: 1100px; margin: 0 auto; }
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+    .test-card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+    .stars { color: #EF9F27; font-size: 15px; margin-bottom: 10px; }
+    .test-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; font-style: italic; font-family: Georgia, serif; }
+    .test-author { display: flex; align-items: center; gap: 10px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; font-family: Arial, sans-serif; }
+    .av1 { background: #E1F5EE; color: #0F6E56; }
+    .av2 { background: #EEEDFE; color: #534AB7; }
+    .av3 { background: #FAEEDA; color: #854F0B; }
+    .author-name { font-size: 13px; font-weight: 600; font-family: Arial, sans-serif; }
+    .author-loc { font-size: 12px; color: var(--text-muted); font-family: Arial, sans-serif; }
+
+    /* ENVY BANNER */
+    .envy-banner { background: linear-gradient(135deg, #085041, #1D9E75); color: white; padding: 4rem 2rem; text-align: center; }
+    .envy-banner h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; color: white; margin-bottom: 0.75rem; font-family: Georgia, serif; }
+    .envy-banner p { font-size: 1rem; color: #C8F0E4; max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.75; font-family: Arial, sans-serif; }
+    .newsletter { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 440px; margin: 0 auto; }
+    .newsletter input { flex: 1; min-width: 200px; padding: 13px 20px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); color: white; font-size: 14px; outline: none; font-family: Arial, sans-serif; }
+    .newsletter input::placeholder { color: rgba(255,255,255,0.55); }
+    .newsletter button { background: white; color: var(--green-mid); border: none; padding: 13px 26px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; font-family: Arial, sans-serif; }
+    .newsletter button:hover { background: #f0f0f0; }
+
+    /* FOOTER */
+    footer { background: var(--bg-primary); border-top: 0.5px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-logo { font-size: 1.2rem; font-weight: 700; color: var(--green-mid); margin-bottom: 1rem; font-family: Georgia, serif; }
+    .footer-logo span { color: var(--text-primary); }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a { text-decoration: none; color: var(--text-secondary); font-size: 13px; font-family: Arial, sans-serif; }
+    .footer-links a:hover { color: var(--green-mid); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); font-family: Arial, sans-serif; }
+    .footer-copy a { color: var(--green-mid); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .section { padding: 3rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Holiday<span>Envy</span></div>
+    <div class="nav-links">
+      <a href="http://www.holidayenvy.com">Lorem ipsum</a>
+      <a href="http://www.holidayenvy.com">Dolor sit</a>
+      <a href="http://www.holidayenvy.com">Amet</a>
+    </div>
+    <a href="http://www.holidayenvy.com" class="nav-cta">Make them jealous</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Holidays your friends will wish they were on</div>
+    <h1>Book it.<br><span>Brag about it.</span></h1>
+    <p>Discover incredible European holidays that'll have your friends green with envy. Find your dream trip, book through our trusted partners, and enjoy every smug moment.</p>
+    <div class="hero-btns">
+      <a href="http://www.holidayenvy.com" class="btn-primary">Find my holiday</a>
+      <a href="http://www.holidayenvy.com" class="btn-secondary">See what's hot right now</a>
+    </div>
+  </section>
+
+  <svg class="waves" viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C360,0 1080,40 1440,0 L1440,40 Z" fill="#ffffff"/>
+  </svg>
+
+  <!-- DESTINATIONS -->
+  <div class="section">
+    <div class="section-label">Imagine sending this text...</div>
+    <div class="section-title">What will you tell your friends?</div>
+    <div class="section-sub">Picture dropping this into the group chat. Go on — you've earned it.</div>
+
+    <div class="brag-strip">
+      <div class="brag-bubble"><strong>Just booked Santorini</strong> for two weeks 😏 Caldera views every morning...</div>
+      <div class="brag-bubble"><strong>We're doing Tuscany</strong> this summer — wine tours, hilltowns, the lot 🍷</div>
+      <div class="brag-bubble"><strong>Amalfi Coast, baby.</strong> Found an absolute steal. You'll be so jealous 🛥️</div>
+    </div>
+
+    <div class="dest-grid">
+
+      <div class="dest-card">
+        <div class="dest-img santorini">
+          <span class="dest-emoji">🏛️</span>
+          <span class="envy-tag">Pure envy material</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"Woke up to caldera views again…"</div>
+          <h3>Santorini, Greece</h3>
+          <p>Iconic white villages, volcanic sunsets, and crystalline Aegean waters. The ultimate brag destination.</p>
+          <div class="dest-footer">
+            <span class="price">From £799pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <div class="dest-img tuscany">
+          <span class="dest-emoji">🍷</span>
+          <span class="envy-tag">Seriously enviable</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"Just finished a private wine tour…"</div>
+          <h3>Tuscany, Italy</h3>
+          <p>Rolling vineyards, medieval hilltowns, and food that'll ruin you for everything else back home.</p>
+          <div class="dest-footer">
+            <span class="price">From £649pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <div class="dest-img amalfi">
+          <span class="dest-emoji">⛵</span>
+          <span class="envy-tag">Show-stopper</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"Swimming off the boat in Positano…"</div>
+          <h3>Amalfi Coast, Italy</h3>
+          <p>Cliffside villages, turquoise coves, and lemon groves tumbling to the sea. Pure Instagram gold.</p>
+          <div class="dest-footer">
+            <span class="price">From £749pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <div class="dest-img paris">
+          <span class="dest-emoji">🗼</span>
+          <span class="envy-tag">Classic flex</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"Morning croissant under the Eiffel Tower…"</div>
+          <h3>Paris, France</h3>
+          <p>Art, romance, architecture, and food that makes every other city feel a bit ordinary.</p>
+          <div class="dest-footer">
+            <span class="price">From £499pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <div class="dest-img barcelona">
+          <span class="dest-emoji">🎨</span>
+          <span class="envy-tag">Major vibes</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"Tapas, beach, Gaudí — repeat…"</div>
+          <h3>Barcelona, Spain</h3>
+          <p>Wild architecture, golden beaches, and a nightlife scene that absolutely does not stop.</p>
+          <div class="dest-footer">
+            <span class="price">From £549pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <div class="dest-img dolomites">
+          <span class="dest-emoji">⛰️</span>
+          <span class="envy-tag">Next level</span>
+        </div>
+        <div class="dest-body">
+          <div class="dest-brag">"The mountains here are unreal…"</div>
+          <h3>The Dolomites, Italy</h3>
+          <p>Jaw-dropping Alpine peaks, cosy mountain villages, and scenery that belongs in a film.</p>
+          <div class="dest-footer">
+            <span class="price">From £699pp</span>
+            <a href="http://www.holidayenvy.com" class="book-btn">I want this</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHY -->
+  <div class="section">
+    <div class="section-label">Why Holiday Envy</div>
+    <div class="section-title">We find the trips worth bragging about</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">✨</div>
+        <h3>Only the good stuff</h3>
+        <p>Every destination is hand-picked for maximum envy potential. No filler, no forgettable trips.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <h3>Trusted partners</h3>
+        <p>We work with reputable travel providers so you can book confidently and focus on the bragging.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💸</div>
+        <h3>Great value deals</h3>
+        <p>Enviable holidays don't have to cost a fortune. We surface the best deals so you spend less, brag more.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🗺️</div>
+        <h3>Europe specialists</h3>
+        <p>We focus purely on Europe — deep knowledge, brilliant picks, zero compromise.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="test-inner">
+      <div class="section-label" style="text-align:center;">The brag hall of fame</div>
+      <div class="section-title" style="text-align:center;">They booked it. Their friends suffered.</div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p>"Found an incredible Amalfi deal through Holiday Envy. My friends were absolutely green. Already planning next year's trip to really rub it in."</p>
+          <div class="test-author">
+            <div class="avatar av1">SL</div>
+            <div><div class="author-name">Sarah L.</div><div class="author-loc">Manchester</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p>"Sent Santorini photos to the group chat every single day. Three friends have since booked their own trips — honestly, you're welcome."</p>
+          <div class="test-author">
+            <div class="avatar av2">JM</div>
+            <div><div class="author-name">James M.</div><div class="author-loc">London</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p>"Tuscany was everything. My colleagues are still bringing it up two months later. That's exactly the reaction I was going for."</p>
+          <div class="test-author">
+            <div class="avatar av3">RB</div>
+            <div><div class="author-name">Rachel B.</div><div class="author-loc">Edinburgh</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="envy-banner">
+    <h2>Be the one with the holiday stories</h2>
+    <p>Get the best European deals in your inbox before anyone else — so you can book first and brag longest.</p>
+    <div class="newsletter">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Send me the good stuff</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Holiday<span>Envy</span></div>
+    <div class="footer-links">
+      <a href="http://www.holidayenvy.com">Lorem ipsum</a>
+      <a href="http://www.holidayenvy.com">Dolor sit amet</a>
+      <a href="http://www.holidayenvy.com">Consectetur</a>
+      <a href="http://www.holidayenvy.com">Adipiscing elit</a>
+      <a href="http://www.holidayenvy.com">Sed do eiusmod</a>
+    </div>
+    <p class="footer-copy">
+      &copy; 2026 Holiday Envy &nbsp;&middot;&nbsp; All deals provided by third-party partners &nbsp;&middot;&nbsp;
+      <a href="http://www.holidayenvy.com">Privacy policy</a> &nbsp;&middot;&nbsp;
+      <a href="http://www.holidayenvy.com">Terms &amp; conditions</a>
+    </p>
+  </footer>
+
+</body>
+</html>
